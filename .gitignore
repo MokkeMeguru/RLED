@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+/doc/.auctex-auto/
+/doc/report.bbl
+/doc/report.dvi
+*.pdf
+*.tex

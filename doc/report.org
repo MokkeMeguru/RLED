@@ -1,0 +1,37 @@
+#+options: ':t *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+title: Android タブレット・スマホからLED点灯 IoT レポート
+#+date: <2020-06-11 Thu>
+#+author: MokkeMeguru
+#+email: meguru.mokke@gmail.com
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 26.3 (Org mode 9.4)
+#+latex_class: article
+#+latex_class_options: [dvipdfmx]
+#+latex_header: \usepackage{url}
+#+latex_header_extra:
+#+description:
+#+keywords:
+#+subtitle:
+#+latex_compiler: pdflatex
+#+date: \today
+* システムの概要
+本システムでは、提供された教材から幾つかの点を更新し、次に述べるような動作を行う。\par
+点灯・消灯はまず、Android 端末のボタンを経由して RaspberryPi が WLAN 経由で詳細な情報 (操作する LED, 点灯か消灯のどちらの命令か) を提供する.
+送信された情報は、RaspberryPi 内部の PHP で解釈し、 root 権限を付与して LED 点灯を行う。\par
+RaspebrryPiの内部では、提供されたソースコードである、ledtest.c を用いた。
+本ソースコードでは wringPi というライブラリを利用することで、ブレッドボード上の LED 上への給電を操作することでLEDの点灯・消灯を行う。
+Android のソースコードとしては Kotolin を用いてソースコードを再実装した。
+理由としては、Kotlin を用いることを Android の開発側で推奨されていることや、Null安全といったアプリケーションをより堅牢にするための言語実装がなされているためである。
+また、それに伴い教材で用いられていた, Async を用いた Http リクエストではなく、公式の開発ガイドで推奨されている Volley というライブラリを利用した。
+本実装によって Queue を用いた Http リクエストの処理が可能になり、結果として Async やコルーチンといった技術を隠蔽してリクエスト処理を完了できる。
+また ProgressDialogue も非推奨であったため、代わりに TextView のテキストを更新することで、動作状況を表示した。
+Http リクエストは Queue を用いて処理が行われるため、本実装によって、クリックされた順にリクエストを処理することが出来る。
+#+LATEX: \footnote{\url{https://github.com/MokkeMeguru/RLED}}
+* 動作確認画像
+#+ATTR_LATEX: :width 10cm
+[[./image/IMG_2954.jpg]]
