@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Raspberry Pi LED</string>
+    <string name="led1">LED1</string>
+    <string name="led2">LED2</string>
+    <string name="led3">LED3</string>
+    <string name="led4">LED4</string>
+    <string name="about_name">LED Toggler for Raspberry Pi</string>
+    <string name="led5">LED5</string>
+    <string name="httpstatus" />
+</resources>
